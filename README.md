@@ -12,7 +12,7 @@
 <img width=280px height=160px src="https://github.com/Magrelaio/modron-bot-discord/assets/115477694/34c079e5-8048-498a-98ff-0658972c87d4"></img>
 <img width=280px height=160px src="https://github.com/Magrelaio/modron-bot-discord/assets/115477694/1194ad10-dd9a-4355-83cb-afc5a7124d92"></img>
 <img width=280px height=160px src="https://github.com/Magrelaio/modron-bot-discord/assets/115477694/13aaad61-e4de-45c2-95b9-ce994c491eb3"></img></p>
-<p>Você tambem pode utilizá-lo para somar seus atributos de personagem (no caso somar o dado que você tirar + o atributo):
+<p>Você tambem pode utilizá-lo para somar seus atributos de personagem (no caso somar o dado que você tirar + o atributo): <br>
 <img width=280px height=160px src="https://github.com/Magrelaio/modron-bot-discord/assets/115477694/296140c3-2b6c-416c-9a3e-aa1fc2c760d4"></img>
 <img width=280px height=160px src="https://github.com/Magrelaio/modron-bot-discord/assets/115477694/7cf92ffb-3836-4ce9-867c-51350bb8bab5"></img>
 <img width=280px height=160px src="https://github.com/Magrelaio/modron-bot-discord/assets/115477694/f85858f7-63ff-41f8-860c-0f9fdc3a584d"></img></p>
