@@ -9,21 +9,16 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-
 @bot.event
 async def on_ready():
     print(f'Entramos como {bot.user}')
-    
-@bot.slash_command()
-async def help(ctx):
-        await ctx.send('receio que ainda não esteja pronto para isto ainda...')
 
 @bot.event
 async def on_message(message):
     if message.author == bot.user:
         return
-
-    # --------------------------- DADO RODANDO NORMALMENTE COM MAIS DE UM DADO E SOMA ---------------------------#
+    
+    # --------------------------- DADO RODANDO NORMALMENTE COM NUMERO E SOMA ---------------------------#
     if 'd' in message.content:
         split_message = message.content.split('d')
         if len(split_message) >= 2:
@@ -52,5 +47,8 @@ async def on_message(message):
             if 1 in rolls or int(dice_type) in rolls:
                 roll_results = f"[{', '.join(f'**{roll}**' if roll == 1 or roll == int(dice_type) else str(roll) for roll in rolls)}]"
             await message.reply(f"`` {total_roll} `` ⟵ {roll_results} {roll_str}")
+
+    # ---------------------------------EASTER EGG PIKA----------------------------------------------
+    '''Algo bacana por aqui'''
 
 bot.run(TOKEN)
