@@ -24,6 +24,14 @@ async def on_ready():
 async def on_message(message):
     if message.author == bot.user:
         return
+    
+    content = message.content.strip().lower()
+    
+    if content.startswith(tuple("abcefghijklmnopqrstuvwxyzABCEFGHIJKLMNOPQRSTUVWXYZ")):
+        return
+    
+    if content.endswith(tuple("abcefghijklmnopqrstuvwxyzABCEFGHIJKLMNOPQRSTUVWXYZ")):
+        return
 
     if 'd' in message.content:
         split_message = message.content.split('d')
@@ -53,10 +61,9 @@ async def on_message(message):
             if 1 in rolls or int(dice_type) in rolls:
                 roll_results = f"[{', '.join(f'**{roll}**' if roll == 1 or roll == int(dice_type) else str(roll) for roll in rolls)}]"
             await message.reply(f"`` {total_roll} `` ⟵ {roll_results} {roll_str}")
-
-@bot.slash_command(name="ping", description="O bot fala pong")
-async def ping(ctx: disnake.ApplicationCommandInteraction):
-    await ctx.response.send_message("pong")
+    '''else:
+        if message.content.startswith {str}:
+            pass'''
 
 @bot.slash_command(name="rolar_dado", description="Rola um dado com o número especificado de lados")
 async def rolar_dado(ctx: disnake.ApplicationCommandInteraction, lados: int):
@@ -67,10 +74,10 @@ async def rolar_dado(ctx: disnake.ApplicationCommandInteraction, lados: int):
     await ctx.response.send_message(f"Resultado do dado de {lados} lados: {resultado}")
     bot.add_command(rolar_dado)
 
-'''@bot.slash_command(name="ping", description="Mede o ping do bot em MS")
+@bot.slash_command(name="ping", description="Mede o ping do bot em MS")
 async def ping(ctx: disnake.ApplicationCommandInteraction):
     latency = bot.latency * 1000
-    await ctx.response.send_message(f"Ping: {latency:.2f}ms")
-    bot.add_command(name="ping")'''
+    await ctx.response.send_message(f"Ping: {latency}ms")
+    bot.add_command(name="ping")
 
 bot.run(TOKEN)
