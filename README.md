@@ -4,9 +4,9 @@
 
 <img src="https://github.com/Magrelaio/modron-bot-discord/assets/115477694/e6471f94-8a28-42ee-b772-c1127f89210c"></img>
 <h2>Sobre</h2>
-<p>Modron é um projeto que criei apenas para jogar RPG com alguns amigos meus via Discord, e tambem para colocar em prática meus conhecimentos em Python. Vale ressaltar que Modron nunca será monetizado e foi criado apenas para estudos.<br> É importante realçar que este projeto ainda esta em desenvolvimento e pretendo fazê-lo mais do que apenas um bot de dados. Futuramente ele será o bot perfeito para RPG, contendo inventario individual para cada jogador, economia (lojas e dinheiros) e muito mais!</p>
+<p>Modron é um projeto que criei apenas para jogar RPG com alguns amigos meus via Discord, e tambem para colocar em prática meus conhecimentos em Python. <br> É importante realçar que este projeto ainda esta em desenvolvimento e pretendo fazê-lo mais do que apenas um bot de dados. Futuramente ele será o bot perfeito para RPG, contendo inventario individual para cada jogador, economia (lojas, dinheiro, inventarios) e muito mais!</p>
 <h3>Acesso ao projeto</h3>
-<p>Para ter acesso ao Modron, é necessario que você instale o aplicativo <a href="https://discord.com">Discord</a> em seu computador ou celular, crie uma <a href="https://discord.com/register">conta</a>, e entre em um servidor que já tenha o Modron, ou convide-o á um servidor seu utilizando este <a href="https://discord.com/api/oauth2/authorize?client_id=1071900815155003503&permissions=8&scope=bot%20applications.commands">link</a>.</p>
+<p>Para ter acesso ao Modron, é necessario que você instale o aplicativo <a href="https://discord.com">Discord</a> em seu computador ou celular, crie uma <a href="https://discord.com/register">conta</a>, e entre em um servidor que já tenha o Modron, ou convide-o a um servidor seu utilizando este <a href="https://discord.com/api/oauth2/authorize?client_id=1071900815155003503&permissions=8&scope=bot%20applications.commands">link</a>.</p>
 <h3>🎲Como utilizá-lo🎲</h3>
 <p>Para utilizar o Modron basta ir em um canal de texto que Modron tenha acesso, e digite "d" e o dado desejado, por exemplo:<br>
 <img width=280px height=160px src="https://github.com/Magrelaio/modron-bot-discord/assets/115477694/34c079e5-8048-498a-98ff-0658972c87d4"></img>
@@ -22,4 +22,4 @@
 <img width=280px height=160px src="https://github.com/Magrelaio/modron-bot-discord/assets/115477694/c898f8f1-fab2-4524-a9f0-edeac7dd5045"></img>
 </p>
 <h2>🏁Finalizações</h2>
-<p>Modron é um bot de dados para você utilizá-lo no geral, seja para somar atributos, dano e afins, porém, ainda tem muita coisa para adicionar a ele, portanto como eu disse, é um bot que eu fiz para apenas eu e meus amigos e não pretendo lançá-lo a publico (pelo menos por enquanto). <br> Tenho muito ainda a adicionar a este projeto e ele se encontra apenas em suas etapas iniciais.</p>
+<p>Modron é um bot de dados para você utilizá-lo no geral, seja para somar atributos, dano e afins, porém, ainda tem muita coisa para adicionar a ele, portanto como eu disse, é um bot que eu fiz para apenas para eu e meus amigos e não pretendo lançá-lo a publico (pelo menos por enquanto). <br> Tenho muito ainda a adicionar a este projeto e ele se encontra apenas em suas etapas iniciais.</p>
