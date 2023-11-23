@@ -82,11 +82,37 @@ async def rolar_dado(ctx: disnake.ApplicationCommandInteraction, lados: int):
     resultado = np.random.randint(1, lados + 1)
     await ctx.response.send_message(f"Resultado do dado de {lados} lados: {resultado}")
     bot.add_command(rolar_dado)'''
+#INICIO DAS SLASH COMMANDS
 
 @bot.slash_command(name="ping", description="Mede o ping do bot em MS")
 async def ping(ctx: disnake.ApplicationCommandInteraction):
     latency = bot.latency * 1000
     await ctx.response.send_message(f"Ping: {latency}ms")
     bot.add_command(name="ping")
+
+@bot.slash_command(name="ver_todos_inventarios", description="Ver todos os itens do inventario de todos.")
+async def ver_todos_inventarios(ctx: disnake.ApplicationCommandInteraction):
+    with open("inventory.txt", "r", encoding='utf-8') as arquivo:
+        inventario = arquivo.read()
+    await ctx.response.send_message(f"{inventario}")
+    bot.add_command(name="ver_todos_inventarios")
+    
+@bot.slash_command(name="ver_inventario", description="Ver todos os itens do inventario do personagem selecionado.")
+async def ver_inventario(ctx: disnake.ApplicationCommandInteraction, personagem: str):
+    if personagem.lower() == "draque":
+        with open("inventory.txt", "r", encoding='utf-8') as arquivo:
+            inventario = arquivo.read()
+            Draque = inventario.split("Draque")
+        await ctx.response.send_message(f"{Draque}")
+        print(Draque)
+    elif personagem.lower() == "ukkonen":
+         with open("inventory.txt", "r", encoding='utf-8') as arquivo:
+            inventario = arquivo.read()
+            Ukkonen = inventario.split("Ukkonen")
+    await ctx.response.send_message(f"{Ukkonen}")
+    print(Ukkonen)
+    bot.add_command(name="ver_inventario")
+
+'''["Fenyx", "Draque", "Ukkonen","Kyuma", "Murrdok", "Aloy"]'''
 
 bot.run(TOKEN)
