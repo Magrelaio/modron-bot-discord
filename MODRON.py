@@ -45,10 +45,11 @@ async def on_message(message):
                 dice_type, *penalty_list = split_message[1].split('-')
                 penalty = sum(int(p) for p in penalty_list)
                 bonus = -penalty
-            if '*' in split_message[1]:
+            elif '*' in split_message[1]:
                 dice_type, *multiply_list = split_message[1].split('*')
-                multiply = np.multiply(int(m) for m in multiply_list)
-                bonus = multiply
+                bonus = 1
+                for m in multiply_list:
+                    bonus *= int(m)
             #Fim da criação de expressões
             ##fim do container (oque esta abaixo disso será praticamente imutavel)
             else:
@@ -96,9 +97,13 @@ async def ver_todos_inventarios(ctx: disnake.ApplicationCommandInteraction):
         inventario = arquivo.read()
     await ctx.response.send_message(f"{inventario}")
     bot.add_command(name="ver_todos_inventarios")
-    
+
 @bot.slash_command(name="ver_inventario", description="Ver todos os itens do inventario do personagem selecionado.")
 async def ver_inventario(ctx: disnake.ApplicationCommandInteraction, personagem: str):
+    '''personagens = ["Fenyx", "Draque", "Ukkonen","Kyuma", "Murrdok", "Aloy"]
+    personagem = personagem.lower()
+    for personagem in personagens:
+        inicio_inv_perso = inventario.find(personagens[Draque])'''
     if personagem.lower() == "draque":
         with open("inventory.txt", "r", encoding='utf-8') as arquivo:
             inventario = arquivo.read()
@@ -112,7 +117,5 @@ async def ver_inventario(ctx: disnake.ApplicationCommandInteraction, personagem:
     await ctx.response.send_message(f"{Ukkonen}")
     print(Ukkonen)
     bot.add_command(name="ver_inventario")
-
-'''["Fenyx", "Draque", "Ukkonen","Kyuma", "Murrdok", "Aloy"]'''
 
 bot.run(TOKEN)
