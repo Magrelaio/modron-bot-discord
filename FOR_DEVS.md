@@ -1,5 +1,5 @@
 # PARA DESENVOLVEDORES:
-Criei essa seção para falar numa linguagem menos comum
+Criei essa seção para falar numa linguagem menos formal
 Modron foi criado na linguagem Python e atualmente utiliza a biblioteca Disnake, uma vez que, sua antiga biblioteca (discord.py) foi descontinuada em 2021 - não sendo atualizada para portar os Slash_Commands, algo que eu acho importante portar para esse projeto, visto as mudanças planejadas para ele.
 Eu entendo que seus comandos e sua organização esteja pifia, mas desde que ele funcione já é uma vitória para mim.
 

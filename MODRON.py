@@ -47,7 +47,6 @@ async def on_message(message):
                 bonus = -penalty
             elif '*' in split_message[1]:
                 dice_type, *multiply_list = split_message[1].split('*')
-                bonus = 1
                 for m in multiply_list:
                     bonus * int(m)
             #Fim da criação de expressões
@@ -57,8 +56,11 @@ async def on_message(message):
                 bonus = 0
                 # if int(bonus) >= 100000001 IA COLOCAR LIMITADOR DE UM MILHÃO NO BONUS AHAHAHAH
                 if int(dice_type) >= 201:
-                    await message.reply('Número de lados muito alto! tente um numero mais baixo por favor')
+                    await message.reply('Número de lados muito alto! Tente um numero mais baixo por favor (máximo de 200)')
                     return
+            if int(dice_type) <= 0:
+                await message.reply('Numero de lados inválido. Você precisa rolar um numero acima de 1! - ou deixe em branco como "d20"')
+                return
             if split_message[0].isnumeric():
                 dice_number = int(split_message[0])
             else:
@@ -68,7 +70,10 @@ async def on_message(message):
                     await message.reply('Numero de dado ou expressão invalida, tente novamente com numeros ou expressões validas; por exemplo: d20, d30 + 5, e afins \n Caso tenha dificuldade execute o comando "/FAQ"')
             rolls = sorted(np.random.choice(np.arange(1, int(dice_type) + 1)) for _ in range(dice_number))
             if int(dice_number) >= 26:
-                await message.reply('Numero de dados muito alto! tente um numero mais baixo por favor')
+                await message.reply('Numero de dados muito alto! tente um numero mais baixo por favor (máximo de 25)')
+                return
+            if int(dice_number) <= 0:
+                await message.reply('Numero de dados inválido. Você precisa rolar um numero acima de 1! - ou deixe em branco como "d20"')
                 return
             total_roll = sum(rolls) + bonus
             roll_str = f"{dice_number}d{dice_type}"
@@ -107,10 +112,10 @@ async def ver_todos_inventarios(ctx: disnake.ApplicationCommandInteraction):
 
 @bot.slash_command(name="ver_inventario", description="Ver todos os itens do inventario do personagem selecionado.")
 async def ver_inventario(ctx: disnake.ApplicationCommandInteraction, personagem: str):
-    '''personagens = ["Fenyx", "Draque", "Ukkonen","Kyuma", "Murrdok", "Aloy"]
-    personagem = personagem.lower()
-    for personagem in personagens:
-        inicio_inv_perso = inventario.find(personagens[Draque])'''
+    # personagens = ["Fenyx", "Draque", "Ukkonen","Kyuma", "Murrdok", "Aloy"]
+    # personagem = personagem.lower()
+    # for personagem in personagens:
+    #     inicio_inv_perso = inventario.find(personagens[Draque])
     if personagem.lower() == "draque":
         with open("inventory.txt", "r", encoding='utf-8') as arquivo:
             inventario = arquivo.read()
