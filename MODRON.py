@@ -49,22 +49,29 @@ async def on_message(message):
                 dice_type, *multiply_list = split_message[1].split('*')
                 bonus = 1
                 for m in multiply_list:
-                    bonus *= int(m)
+                    bonus * int(m)
             #Fim da criação de expressões
             ##fim do container (oque esta abaixo disso será praticamente imutavel)
             else:
                 dice_type = split_message[1]
                 bonus = 0
+                # if int(bonus) >= 100000001 IA COLOCAR LIMITADOR DE UM MILHÃO NO BONUS AHAHAHAH
+                if int(dice_type) >= 201:
+                    await message.reply('Número de lados muito alto! tente um numero mais baixo por favor')
+                    return
             if split_message[0].isnumeric():
                 dice_number = int(split_message[0])
             else:
                 try:
                     dice_number = 1
-                    rolls = sorted(np.random.choice(np.arange(1, int(dice_type) + 1)) for _ in range(dice_number))
-                    total_roll = sum(rolls) + bonus
-                    roll_str = f"{dice_number}d{dice_type}"
                 except:
                     await message.reply('Numero de dado ou expressão invalida, tente novamente com numeros ou expressões validas; por exemplo: d20, d30 + 5, e afins \n Caso tenha dificuldade execute o comando "/FAQ"')
+            rolls = sorted(np.random.choice(np.arange(1, int(dice_type) + 1)) for _ in range(dice_number))
+            if int(dice_number) >= 26:
+                await message.reply('Numero de dados muito alto! tente um numero mais baixo por favor')
+                return
+            total_roll = sum(rolls) + bonus
+            roll_str = f"{dice_number}d{dice_type}"
             if bonus > 0:
                 roll_str += f" + {bonus}"
             elif bonus < 0:
