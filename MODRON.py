@@ -10,6 +10,7 @@
 import disnake 
 from disnake.ext import commands
 import numpy as np
+from functools import reduce
 from token_modron_alpha import TOKEN_MAV as TOKEN
 
 intents = disnake.Intents.default()
@@ -47,8 +48,8 @@ async def on_message(message):
                 bonus = -penalty
             elif '*' in split_message[1]:
                 dice_type, *multiply_list = split_message[1].split('*')
-                for m in multiply_list:
-                    bonus * int(m)
+                multiply = reduce(lambda x, y: x * int(y), multiply_list, 1)
+                bonus * multiply
             #Fim da criação de expressões
             ##fim do container (oque esta abaixo disso será praticamente imutavel)
             else:
@@ -75,16 +76,39 @@ async def on_message(message):
             if int(dice_number) <= 0:
                 await message.reply('Numero de dados inválido. Você precisa rolar um numero acima de 1! - ou deixe em branco como "d20"')
                 return
-            total_roll = sum(rolls) + bonus
             roll_str = f"{dice_number}d{dice_type}"
-            if bonus > 0:
+            if '+' in split_message[1]:
+                bonus = abs(bonus)
+                print("mais")
+                total_roll = sum(rolls) + bonus
                 roll_str += f" + {bonus}"
-            elif bonus < 0:
-                roll_str += f"{bonus}"
+            elif '-' in split_message[1]:
+                bonus = abs(bonus)
+                print("menos")
+                print(bonus)
+                print(rolls)
+                total_roll = sum(rolls) - bonus
+                roll_str += f" - {bonus}"
+            elif '*' in split_message[1]:
+                bonus = abs(bonus)
+                total_roll = sum(rolls) * bonus
+                print("vezes")
+                roll_str += f" * {bonus}"
+            #Fim da criação de expressões
+            ##fim do container (oque esta abaixo disso será praticamente imutavel)
+            else:
+                print('same')
+                total_roll = sum(rolls)
+            #if bonus > 0:
+            #    roll_str += f" + {bonus}"
+            #elif bonus < 0:
+            #    roll_str += f"{bonus}"
             roll_results = f"[{', '.join(str(roll) for roll in rolls)}]"
             if 1 in rolls or int(dice_type) in rolls:
                 roll_results = f"[{', '.join(f'**{roll}**' if roll == 1 or roll == int(dice_type) else str(roll) for roll in rolls)}]"
             await message.reply(f"`` {total_roll} `` ⟵ {roll_results} {roll_str}")
+    else:
+        return
 
 
 '''@bot.slash_command(name="rolar_dado", description="Rola um dado com o número especificado de lados")
