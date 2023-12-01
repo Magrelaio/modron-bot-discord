@@ -11,6 +11,7 @@ import disnake
 from disnake.ext import commands
 import numpy as np
 from functools import reduce
+from token_modron_alpha import TOKEN_MAV as TOKEN
 
 intents = disnake.Intents.default()
 intents.message_content = True
@@ -153,4 +154,4 @@ async def ver_inventario(ctx: disnake.ApplicationCommandInteraction, personagem:
     print(Ukkonen)
     bot.add_command(name="ver_inventario")
 
-bot.run('MTAzNDg4NjI4OTQ5NDkyMTIyNw.GCFk2r.lIFv_3kJGzjA-k2rsUzktqQdYLLmvZGgufI5xg')
+bot.run(TOKEN)
