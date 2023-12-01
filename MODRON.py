@@ -11,6 +11,7 @@ import disnake
 from disnake.ext import commands
 import numpy as np
 from token_modron_alpha import TOKEN_MAV as TOKEN
+from functools import reduce
 
 intents = disnake.Intents.default()
 intents.message_content = True
@@ -47,8 +48,8 @@ async def on_message(message):
                 bonus = -penalty
             elif '*' in split_message[1]:
                 dice_type, *multiply_list = split_message[1].split('*')
-                for m in multiply_list:
-                    bonus * int(m)
+                multiply = reduce(lambda x, y: x * int(y), multiply_list, 1)
+                bonus = multiply
             #Fim da criação de expressões
             ##fim do container (oque esta abaixo disso será praticamente imutavel)
             else:
@@ -85,6 +86,8 @@ async def on_message(message):
             if 1 in rolls or int(dice_type) in rolls:
                 roll_results = f"[{', '.join(f'**{roll}**' if roll == 1 or roll == int(dice_type) else str(roll) for roll in rolls)}]"
             await message.reply(f"`` {total_roll} `` ⟵ {roll_results} {roll_str}")
+    else:
+        return
 
 
 '''@bot.slash_command(name="rolar_dado", description="Rola um dado com o número especificado de lados")
