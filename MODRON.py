@@ -49,7 +49,7 @@ async def on_message(message):
             elif '*' in split_message[1]:
                 dice_type, *multiply_list = split_message[1].split('*')
                 multiply = reduce(lambda x, y: x * int(y), multiply_list, 1)
-                bonus = multiply
+                bonus * multiply
             #Fim da criação de expressões
             ##fim do container (oque esta abaixo disso será praticamente imutavel)
             else:
@@ -76,7 +76,7 @@ async def on_message(message):
             if int(dice_number) <= 0:
                 await message.reply('Numero de dados inválido. Você precisa rolar um numero acima de 1! - ou deixe em branco como "d20"')
                 return
-            total_roll = sum(rolls) + bonus
+            total_roll = sum(rolls), bonus
             roll_str = f"{dice_number}d{dice_type}"
             if bonus > 0:
                 roll_str += f" + {bonus}"
