@@ -40,22 +40,32 @@ async def on_message(message):
             ##Container para criação de basicamente toda e qualquer alteração que será feita na questão de funcionalidade dos dados
             #para criação de expressões como "d20 + 5, d30 - 2 e afins"
             if '+' in split_message[1]:
-                dice_type, *bonus_list = split_message[1].split('+')
-                bonus = sum(int(b) for b in bonus_list)
+                try:
+                    dice_type, *bonus_list = split_message[1].split('+')
+                    bonus = sum(int(b) for b in bonus_list)
+                except:
+                    bonus = None
+                    await message.reply('Não posso tentar somar numeros inexistentes! Coloque um numero após o "+"!')
             elif '-' in split_message[1]:
-                dice_type, *penalty_list = split_message[1].split('-')
-                penalty = sum(int(p) for p in penalty_list)
-                bonus = -penalty
+                try:
+                    dice_type, *penalty_list = split_message[1].split('-')
+                    penalty = sum(int(p) for p in penalty_list)
+                    bonus = penalty
+                except:
+                    bonus = None
+                    await message.reply('Não posso tentar subtrair numeros inexistentes! Coloque um numero após o "-"!')
             elif '*' in split_message[1]:
-                dice_type, *multiply_list = split_message[1].split('*')
-                multiply = reduce(lambda x, y: x * int(y), multiply_list, 1)
-                bonus * multiply
+                try:
+                    dice_type, *multiply_list = split_message[1].split('*')
+                    multiply = reduce(lambda x, y: x * int(y), multiply_list, 1)
+                    bonus = multiply
+                except:
+                    bonus = None
+                    await message.reply('Não posso tentar multiplicar numeros inexistentes! Coloque um numero após o "*"!')
             #Fim da criação de expressões
-            ##fim do container (oque esta abaixo disso será praticamente imutavel)
             else:
                 dice_type = split_message[1]
                 bonus = 0
-                # if int(bonus) >= 100000001 IA COLOCAR LIMITADOR DE UM MILHÃO NO BONUS AHAHAHAH
                 if int(dice_type) >= 201:
                     await message.reply('Número de lados muito alto! Tente um numero mais baixo por favor (máximo de 200)')
                     return
@@ -79,31 +89,22 @@ async def on_message(message):
             total_roll = sum(rolls), bonus
             roll_str = f"{dice_number}d{dice_type}"
             if '+' in split_message[1]:
-                bonus = abs(bonus)
-                print("mais")
-                total_roll = sum(rolls) + bonus
-                roll_str += f" + {bonus}"
+                if bonus is None:
+                    return
+                total_roll = sum(rolls) + abs(bonus)
+                roll_str += f"+ {bonus}"
             elif '-' in split_message[1]:
-                bonus = abs(bonus)
-                print("menos")
-                print(bonus)
-                print(rolls)
-                total_roll = sum(rolls) - bonus
-                roll_str += f" - {bonus}"
+                if bonus is None:
+                    return
+                total_roll = sum(rolls) - abs(bonus)
+                roll_str += f"- {bonus}"
             elif '*' in split_message[1]:
-                bonus = abs(bonus)
-                total_roll = sum(rolls) * bonus
-                print("vezes")
-                roll_str += f" * {bonus}"
-            #Fim da criação de expressões
-            ##fim do container (oque esta abaixo disso será praticamente imutavel)
+                if bonus is None:
+                    return
+                total_roll = sum(rolls) * abs(bonus)
+                roll_str += f"* {bonus}"
             else:
-                print('same')
                 total_roll = sum(rolls)
-            #if bonus > 0:
-            #    roll_str += f" + {bonus}"
-            #elif bonus < 0:
-            #    roll_str += f"{bonus}"
             roll_results = f"[{', '.join(str(roll) for roll in rolls)}]"
             if 1 in rolls or int(dice_type) in rolls:
                 roll_results = f"[{', '.join(f'**{roll}**' if roll == 1 or roll == int(dice_type) else str(roll) for roll in rolls)}]"
@@ -125,7 +126,7 @@ async def rolar_dado(ctx: disnake.ApplicationCommandInteraction, lados: int):
 @bot.slash_command(name="ping", description="Mede o ping do bot em MS")
 async def ping(ctx: disnake.ApplicationCommandInteraction):
     latency = bot.latency * 1000
-    await ctx.response.send_message(f"Ping: {latency}ms")
+    await ctx.response.send_message(f"Ping: {latency:.2f}ms")
     bot.add_command(name="ping")
 
 @bot.slash_command(name="ver_todos_inventarios", description="Ver todos os itens do inventario de todos.")
