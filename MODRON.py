@@ -3,13 +3,15 @@
     Adicionar algo que mude a vida dos players (comando para subtrair a vida atual(tambem dificil)
     Adicionar porcentagem do numero total do dado
     Easter Egg (izi)
-    inventario do Dojo
+    inventario do Dojo - em progresso
     rodar dados em fileira (como o # de um outro bot)
     '''
 
 import disnake 
 from disnake.ext import commands
 import numpy as np
+import json
+import os
 from functools import reduce
 from token_modron_alpha import TOKEN_MAV as TOKEN
 
@@ -20,6 +22,7 @@ bot = commands.Bot(command_prefix='', intents= intents)
 @bot.event
 async def on_ready():
     print(f'Entramos como {bot.user}')
+    load_inventory()
 
 @bot.event
 async def on_message(message):
@@ -128,7 +131,7 @@ async def ping(ctx: disnake.ApplicationCommandInteraction):
     await ctx.response.send_message(f"Ping: {latency:.2f}ms")
     bot.add_command(name="ping")
 
-@bot.slash_command(name="ver_todos_inventarios", description="Ver todos os itens do inventario de todos.")
+'''@bot.slash_command(name="ver_todos_inventarios", description="Ver todos os itens do inventario de todos.")
 async def ver_todos_inventarios(ctx: disnake.ApplicationCommandInteraction):
     with open("inventory.txt", "r", encoding='utf-8') as arquivo:
         inventario = arquivo.read()
@@ -137,10 +140,6 @@ async def ver_todos_inventarios(ctx: disnake.ApplicationCommandInteraction):
 
 @bot.slash_command(name="ver_inventario", description="Ver todos os itens do inventario do personagem selecionado.")
 async def ver_inventario(ctx: disnake.ApplicationCommandInteraction, personagem: str):
-    # personagens = ["Fenyx", "Draque", "Ukkonen","Kyuma", "Murrdok", "Aloy"]
-    # personagem = personagem.lower()
-    # for personagem in personagens:
-    #     inicio_inv_perso = inventario.find(personagens[Draque])
     if personagem.lower() == "draque":
         with open("inventory.txt", "r", encoding='utf-8') as arquivo:
             inventario = arquivo.read()
@@ -153,6 +152,62 @@ async def ver_inventario(ctx: disnake.ApplicationCommandInteraction, personagem:
             Ukkonen = inventario.split("Ukkonen")
     await ctx.response.send_message(f"{Ukkonen}")
     print(Ukkonen)
-    bot.add_command(name="ver_inventario")
+    bot.add_command(name="ver_inventario")'''
+    
+#NOVA SEÇÃO VER INVENTARIO
+
+def formatar_inventario(inventario):
+    return "\n".join([f"{item} ({quantidade} unidades)" for item, quantidade in inventario.items()])
+
+def load_inventory():
+    try:
+        with open('inventory.json', 'r', encoding='utf-8') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        print("Arquivo não encontrado.")
+        return {}
+
+def save_inventory(inventory):
+    with open('inventory.json', 'w', encoding='utf-8') as file:
+        json.dump(inventory, file)
+
+@bot.slash_command(name='criar_inventario', description="[ADMIN] Crie um inventario para um jogador!")
+@commands.has_permissions(administrator=True)
+async def criar_inventario(ctx, jogador):
+    inventory = load_inventory()
+
+    jogador = jogador.capitalize()
+    
+    if jogador not in inventory:
+        inventory[jogador] = {}
+        save_inventory(inventory)
+        await ctx.send(f"Inventário para {jogador} criado com sucesso.")
+    else:
+        await ctx.send(f"Inventário para {jogador} já existe.")
+
+@bot.slash_command(name='ver_todos_inventarios')
+async def ver_todos_inventarios(ctx):
+    inventory = load_inventory()
+    inventarios_str = "\n\n".join([f"Inventário de {jogador}:\n{formatar_inventario(inventario)}" for jogador, inventario in inventory.items()])
+    await ctx.send(f"Inventários existentes:\n{inventarios_str}")
+    
+@bot.slash_command(name='editar_inventario', description="Edite o inventario de seu personagem")
+async def editar_inventario(ctx, jogador, item, quantidade: int):
+    inventory = load_inventory()
+
+    jogador = jogador.capitalize()
+    
+    # Verifica se o jogador existe no inventário
+    if jogador not in inventory:
+        await ctx.send(f"Inventário para {jogador} não encontrado.")
+        return
+
+    # Verifica se o usuário é o dono do inventário
+    if jogador.lower() == str(ctx.author).lower():
+        inventory[jogador][item] = quantidade
+        save_inventory(inventory)
+        await ctx.send(f"{item} adicionado ao seu inventário com quantidade {quantidade}.")
+    else:
+        await ctx.send("Você só pode editar o seu próprio inventário.")
 
 bot.run(TOKEN)
