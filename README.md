@@ -23,6 +23,6 @@
 </p>
 <h3>Observações informais</h3>
 <p>Entendo que para você que seja desenvolvedor, caso veja os códigos pense "Minha nossa, que bagunça", eu te entendo, uma vez que esse é o meu primeiro "grande projeto", entendo que tudo esteja bagunçado, porém a mim, o bot funcionando já é uma grande vitória; E não me importo com a legibilidade do código neste caso especifico, uma vez que, o bot, como dito e reforçado, é apenas para mim e alguns amigos meus; Os códigos estão á publico pois, caso alguem esteja pensando em fazer o bot e tenha muitas dificuldades, como eu tive, ele pode vir aqui e consultar (desde que ele entenda os codigos rs).
-Atualizações: Eu dei uma pequena atualizada no código, melhorado a legibilidade.
+Atualizações: Eu dei uma pequena atualizada no código, melhorado a legibilidade.</p>
 <h2>🏁Finalizações</h2>
 <p>Modron é um bot de dados para você utilizá-lo no geral, seja para somar atributos, dano e afins, porém, ainda tem muita coisa para adicionar a ele, portanto como eu disse, é um bot que eu fiz para apenas para eu e meus amigos e não pretendo lançá-lo a publico (pelo menos por enquanto). <br> Tenho muito ainda a adicionar a este projeto e ele se encontra apenas em suas etapas iniciais.</p>
