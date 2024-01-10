@@ -17,3 +17,12 @@ def load_inventory():
 def save_inventory(inventory):
     with open('inventory.json', 'w', encoding='utf-8') as file:
         json.dump(inventory, file)
+        
+''' criação de função para correção de codigo no original. - não vou mexer nisso ainda, irei terminar primeiro o inventario
+def sum(message):
+    try:
+        dice_type, *bonus_list = split_message[1].split('+')
+        bonus = sum(int(b) for b in bonus_list)
+    except:
+        bonus = 0
+'''

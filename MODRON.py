@@ -110,5 +110,4 @@ for filename in os.listdir('./slash_commands'):
     if filename.endswith('.py'):
         print(f"Carregando extensão: {filename}")
         bot.load_extension(f'slash_commands.{filename[:-3]}')
-
 bot.run(TOKEN)

@@ -1,4 +1,4 @@
-from shared_functions import *
+from shared_functions import load_inventory, save_inventory
 from disnake.ext import commands
 
 class DeleteInvCog(commands.Cog):
@@ -7,17 +7,17 @@ class DeleteInvCog(commands.Cog):
 
     @commands.slash_command(name='deletar_inventario', description="[ADMIN] Delete o inventario de um jogador!")
     @commands.has_permissions(administrator=True)
-    async def criar_inventario(self, ctx, jogador):
+    async def deletar_inventario(self, ctx, jogador):
         inventory = load_inventory()
 
         jogador = jogador.capitalize()
 
-        if jogador not in inventory:
-            inventory[jogador] = {}
+        if jogador in inventory:
+            del inventory[jogador]
             save_inventory(inventory)
-            await ctx.send(f"Inventário para {jogador} criado com sucesso.")
+            await ctx.send(f"Inventário de {jogador} deletado com sucesso.")
         else:
-            await ctx.send(f"Inventário para {jogador} já existe.")
+            await ctx.send(f"Inventário para {jogador} não existe ou já foi deletado.")
 
 def setup(bot):
     bot.add_cog(DeleteInvCog(bot))
