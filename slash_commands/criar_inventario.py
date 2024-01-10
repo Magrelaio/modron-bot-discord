@@ -6,7 +6,6 @@ class CreateInvCog(commands.Cog):
         self.bot = bot
 
     @commands.slash_command(name='criar_inventario', description="[ADMIN] Crie um inventario para um jogador!")
-    @commands.has_permissions(administrator=True)
     async def criar_inventario(self, ctx, jogador):
         inventory = load_inventory()
 

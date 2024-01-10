@@ -69,7 +69,7 @@ async def on_message(message):
                     await message.reply('Número de lados muito alto! Tente um numero mais baixo por favor (máximo de 200)')
                     return
             if int(dice_type) <= 0:
-                await message.reply('Numero de lados inválido. Você precisa rolar um numero acima de 1! - ou deixe em branco como "d20"')
+                await message.reply('Numero de lados inválido. Você precisa rolar um numero acima de 1!')
                 return
             if split_message[0].isnumeric():
                 dice_number = int(split_message[0])
