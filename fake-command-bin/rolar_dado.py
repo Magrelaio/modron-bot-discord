@@ -7,3 +7,5 @@
 #     resultado = np.random.randint(1, lados + 1)
 #     await ctx.response.send_message(f"Resultado do dado de {lados} lados: {resultado}")
 #     bot.add_command(rolar_dado)
+#setup(bot)
+# print(qqr coisa)
