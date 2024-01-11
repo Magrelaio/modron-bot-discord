@@ -6,12 +6,12 @@ class DeleteInvCog(commands.Cog):
         self.bot = bot
 
     @commands.slash_command(name='deletar_inventario', description="[ADMIN] Delete o inventario de um jogador!")
+    @commands.guild_only()
     @commands.has_permissions(administrator=True)
     async def deletar_inventario(self, ctx, jogador):
         inventory = load_inventory()
-
-        jogador = jogador.capitalize()
-
+        jogador = jogador.title()
+        
         if jogador in inventory:
             del inventory[jogador]
             save_inventory(inventory)

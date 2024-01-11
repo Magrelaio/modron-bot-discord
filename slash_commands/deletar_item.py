@@ -6,12 +6,13 @@ class DeleteItemCog(commands.Cog):
         self.bot = bot
 
     @commands.slash_command(name='deletar_item', description="Delete um item do inventario de seu personagem")
-    async def editar_inventario(ctx, jogador, item):
+    @commands.guild_only()
+    async def deletar_item(ctx, jogador, item, quantidade):
         inventory = load_inventory()
         if FileNotFoundError in inventory:
             await ctx.response.send_message("Estamos com problemas internos e por isso não podemos cadastrar, carregar ou mexer nos inventarios.")
 
-        jogador = jogador.capitalize()
+        jogador = ctx.author.nick.title() if ctx.author.nick else ctx.author.display_name.title()
         
         if jogador not in inventory:
             await ctx.send(f"Inventário para {jogador} não encontrado.")

@@ -16,7 +16,7 @@ def load_inventory():
 
 def save_inventory(inventory):
     with open('inventory.json', 'w', encoding='utf-8') as file:
-        json.dump(inventory, file)
+        json.dump(inventory, file, indent=4)
         
 ''' criação de função para correção de codigo no original. - não vou mexer nisso ainda, irei terminar primeiro o inventario
 def sum(message):

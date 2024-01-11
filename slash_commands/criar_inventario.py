@@ -5,11 +5,11 @@ class CreateInvCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.guild_only()
     @commands.slash_command(name='criar_inventario', description="[ADMIN] Crie um inventario para um jogador!")
     async def criar_inventario(self, ctx, jogador):
         inventory = load_inventory()
-
-        jogador = jogador.capitalize()
+        jogador = jogador.title()
 
         if jogador not in inventory:
             inventory[jogador] = {}
