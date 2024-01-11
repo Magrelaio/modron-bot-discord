@@ -5,6 +5,7 @@ class SeeAllInvCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.guild_only()
     @commands.slash_command(name='ver_todos_inventarios', description='Veja todos os inventarios cadastrados ao mesmo tempo.')
     async def ver_todos_inventarios(ctx):
         inventory = load_inventory()
