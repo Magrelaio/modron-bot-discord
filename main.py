@@ -93,8 +93,6 @@ async def on_message(message):
                     dice_type, operador, bonus_str = separar_operadores(split_message[1])
                     bonus = float(bonus_str.replace(',', '.')) if bonus_str else 0
                 except ValueError:
-                    # Se ocorrer um ValueError (por exemplo, ao tentar converter uma string não-numérica para float),
-                    # define o bônus como 0
                     bonus = 0
 
                 resultado = processar_expressao(dice_number, dice_type, operador, bonus)
