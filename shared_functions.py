@@ -46,17 +46,15 @@ def processar_expressao(dice_number, dice_type, operador, bonus):
 
     roll_str = f"{dice_number}d{dice_type}"
 
-    if operador == '+':
-        total_roll = sum(rolls) + abs(bonus)
-        roll_str += f"+ {bonus}"
-    elif operador == '-':
-        total_roll = sum(rolls) - abs(bonus)
-        roll_str += f"- {bonus}"
-    elif operador == '*':
-        total_roll = sum(rolls) * abs(bonus)
-        roll_str += f"* {bonus}"
-    else:
-        total_roll = sum(rolls)
+    total_roll = sum(rolls) + abs(bonus) if operador == '+' else  sum(rolls)
+        
+    total_roll = sum(rolls) - abs(bonus) if operador == '-' else sum(rolls)
+    
+    total_roll = sum(rolls) * abs(bonus) if operador == '*' else sum(rolls)
+    
+    total_roll = sum(rolls) / abs(bonus) if operador == '/' else sum(rolls)
+    
+    roll_str += f"+ {bonus}"
 
     return total_roll, roll_str
 

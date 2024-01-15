@@ -35,17 +35,15 @@ def processar_expressao(dice_number=None, dice_type = int, operador = str, bonus
 
     roll_str = f"{dice_number}d{dice_type}"
 
-    if operador == '+':
-        total_roll = sum(rolls) + abs(bonus)
-        roll_str += f"+ {bonus}"
-    elif operador == '-':
-        total_roll = sum(rolls) - abs(bonus)
-        roll_str += f"- {bonus}"
-    elif operador == '*':
-        total_roll = sum(rolls) * abs(bonus)
-        roll_str += f"* {bonus}"
-    else:
-        total_roll = sum(rolls)
+    total_roll = sum(rolls) + abs(bonus) if operador == '+' else  sum(rolls)
+        
+    total_roll = sum(rolls) - abs(bonus) if operador == '-' else sum(rolls)
+    
+    total_roll = sum(rolls) * abs(bonus) if operador == '*' else sum(rolls)
+    
+    total_roll = sum(rolls) / abs(bonus) if operador == '/' else sum(rolls)
+    
+    roll_str += f"+ {bonus}"
 
     return total_roll, roll_str
 
@@ -86,7 +84,6 @@ async def on_message(message):
             split_message = message.content.split('d')
             if len(split_message) >= 2:
                 try:
-                    dice_number = split_message([0])
                     if dice_number == '':
                         dice_number = 0
                     dice_number = int(split_message[0])
