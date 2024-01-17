@@ -3,6 +3,7 @@
 
 import json
 import numpy as np
+import re
 
 def formatar_inventario(inventario):
     return "\n".join([f"{item} ({quantidade} unidades)" for item, quantidade in inventario.items()])
@@ -18,6 +19,10 @@ def load_inventory():
 def save_inventory(inventory):
     with open('inventory.json', 'w', encoding='utf-8') as file:
         json.dump(inventory, file, indent=4)
+
+def processar_rolagem(expressao):
+    dice_number, dice_type, operador, bonus = separar_operadores(expressao)
+    return processar_expressao(dice_number, dice_type, operador, bonus)
         
 ''' criação de função para correção de codigo no original. - não vou mexer nisso ainda, irei terminar primeiro o inventario
 def sum(message):
@@ -54,13 +59,29 @@ def processar_expressao(dice_number, dice_type, operador, bonus):
     
     total_roll = sum(rolls) / abs(bonus) if operador == '/' else sum(rolls)
     
-    roll_str += f"+ {bonus}"
+    roll_str += f"{operador} {bonus}" 
+#aqui ele só está retornando 3 pq sintetizei a expressão, mas eram p ser 4 valores
+    return rolls, total_roll, roll_str
 
-    return total_roll, roll_str
-
-def separar_operadores(expressao):
+'''def separar_operadores(expressao):
     for operador in ['+', '-', '*', '/']:
+        partes = re.compile(r'(\d|[+\-*/])')
         if operador in expressao:
             partes = expressao.split(operador, 1)
-            return partes[0], operador, partes[1]
-    return expressao, None, None
+            return partes[0], operador, partes[1]'''
+
+def separar_operadores(expressao):
+    padrao = re.compile(r'(\d*)d(\d+)([+\-*/]?)(\d*)')
+
+    correspondencias = padrao.match(expressao)
+
+    if correspondencias:
+        dice_number = int(correspondencias.group(1)) if correspondencias.group(1) else 1
+        dice_type = int(correspondencias.group(2))
+        operador = correspondencias.group(3) if correspondencias.group(3) else ''
+        bonus = int(correspondencias.group(4)) if correspondencias.group(4) else ''
+        print(f'{dice_number, dice_type, operador, bonus}')
+
+        return dice_number, dice_type, operador, bonus
+    else:
+        return
