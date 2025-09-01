@@ -12,7 +12,7 @@ import numpy as np
 import json
 import os
 from functools import reduce
-from token_modron_alpha import TOKEN_MAV as TOKEN #adicionado com merge por erros tecnicos
+from token_modron_alpha import TOKEN_MAV as TOKEN #adicionado com merge por erros tecnicos
 
 intents = disnake.Intents.default()
 intents.message_content = True
